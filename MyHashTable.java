@@ -1,63 +1,58 @@
-/**
- * class MyHashTable. A simple HashTable. Handle collision by chain
- */
 import java.util.ArrayList;
 
 public class MyHashTable<K extends Comparable<K>, V>
 {
     private ArrayList<MyHashEntry<K, V>> table;
-    private int count; // how many elements in table
+    private int count; 
 
-    /**
-     * Constructor. Constructor an empty MyHashTable with given number of Buckets
-     * @param tableSize The number of Buckets of the table
-     */
+
+     //Constructor. Constructor an empty MyHashTable with given number of Buckets
+ 
     public MyHashTable(int tableSize){
         if(tableSize <= 0)
-            tableSize = 10;          // guard against an invalid size
+            tableSize = 10;          
         table = new ArrayList<MyHashEntry<K, V>>(tableSize);
         for(int i = 0; i < tableSize; i++)
-            table.add(null);         // every bucket starts as an empty chain
+            table.add(null);         
         count = 0;
     }
 
-    /**
-     * constructor. Construct an empty MyHashTable with capacity 10 buckets
-     */
+     //constructor. Construct an empty MyHashTable with capacity 10 buckets
+
     public MyHashTable(){
         this(10);
     }
 
-    /**
-     * Map a key to a bucket index. Masking the sign bit keeps the
-     * result non-negative even when hashCode() is negative.
-     */
+
+     //Map a key to a bucket index. Masking the sign bit keeps the
+     //result non-negative even when hashCode() is negative.
+
     private int hash(K key){
         return (key.hashCode() & 0x7fffffff) % table.size();
     }
 
-    /**
-     * get the number of elements in the table
-     * @return the number of elements in the table
-     */
+
+     //get the number of elements in the table
+     //return the number of elements in the table
+     
     public int size(){
         return count;
     }
 
-    /**
-     * clear the table
-     */
+
+     //clear the table
+
     public void clear(){
         for(int i = 0; i < table.size(); i++)
             table.set(i, null);
         count = 0;
     }
 
-    /**
-     * get the value with given key.
-     * @param key The given key
-     * @return the value that have the key matches the given key. If no such a value, return null
-     */
+
+    //get the value with given key.
+     //param key The given key
+     //return the value that have the key matches the given key. If no such a value, return null
+
     public V get(K key){
         MyHashEntry<K, V> current = table.get(hash(key));
         while(current != null){
@@ -68,12 +63,12 @@ public class MyHashTable<K extends Comparable<K>, V>
         return null;
     }
 
-    /**
-     * insert (key, value) pair into the table
-     * If the key already exists, its value is replaced.
-     * @param key The key of the pair
-     * @param value The value of the pair
-     */
+
+     //insert (key, value) pair into the table
+     //If the key already exists, its value is replaced.
+     //param key The key of the pair
+     //param value The value of the pair
+
     public void insert(K key, V value){
         int index = hash(key);
         MyHashEntry<K, V> current = table.get(index);
@@ -90,11 +85,11 @@ public class MyHashTable<K extends Comparable<K>, V>
         count++;
     }
 
-    /**
-     * remove the value with given key from the table
-     * @param key The given key
-     * @return the value whose key matches the given key. If no such value, null is returned
-     */
+
+     //remove the value with given key from the table
+     //param key The given key
+     //return the value whose key matches the given key. If no such value, null is returned
+
     public V remove(K key){
         int index = hash(key);
         MyHashEntry<K, V> current = table.get(index);
@@ -114,18 +109,17 @@ public class MyHashTable<K extends Comparable<K>, V>
         return null;
     }
 
-    /**
-     * check if the table is empty,i.e. no entry
-     * @return true if the table holds no elements; false otherwise
-     */
+
+     //check if the table is empty,i.e. no entry
+     //return true if the table holds no elements; false otherwise
+
     public boolean isEmpty(){
         return count == 0;
     }
 
-    /**
-     * return a String representation of the table
-     * @return a String representation of the table
-     */
+
+     //return a String representation of the table
+
     public String toString(){
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < table.size(); i++){
